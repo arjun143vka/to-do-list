@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>To-Do List</title>
+    {% load static%};
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+   
+</head>
+<body> 
+    <h2>My <span>To-Do</span> List</h2>
+        <form method="POST">
+            {% csrf_token %}
+            <div id="inputBox">
+                <input type="text" name="title" placeholder="Add task">
+                 <button >Add</button>
+            </div>
+        </form>
+    <div>
+        {% for task in tasks %}
+            <div id="task">
+                {{ task.title }}<br>
+                <input type="checkbox" id="process" checked>
+                <label for="pending">Pending</label><br>
+                <input type="checkbox" id="process">
+                <label for="Done">Done</label><br><br><br> 
+                <a id="del" href="{% url 'delete_task' task.id %}">Delete</a>
+            </div>
+            {%empty%}
+            <div id="no">No tasks yet.</div>
+        {% endfor %}
+    </div>
+</body>
+</html>
